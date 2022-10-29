@@ -1,13 +1,25 @@
 package com.example.battleship.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "bot")
 public class Bot {
 
+    @Id
+    @Column(name = "bot_id")
     private long id;
-    private int login;
+    @Column(name = "difficult")
+    private int difficult;
 
-    public Bot(long id, int login) {
+    public Bot(long id, int difficult) {
         this.id = id;
-        this.login = login;
+        this.difficult = difficult;
+    }
+
+    public Bot() {
+
     }
 
     public long getId() {
@@ -18,12 +30,12 @@ public class Bot {
         this.id = id;
     }
 
-    public int getLogin() {
-        return login;
+    public int getDifficult() {
+        return difficult;
     }
 
-    public void setLogin(int login) {
-        this.login = login;
+    public void setDifficult(int difficult) {
+        this.difficult = difficult;
     }
 
 
