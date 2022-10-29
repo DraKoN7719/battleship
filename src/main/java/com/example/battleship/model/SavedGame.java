@@ -1,24 +1,40 @@
 package com.example.battleship.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
+@Entity(name = "save_game")
 public class SavedGame {
+
+    @Id
+    @Column(name = "game_id")
     private UUID id;
+    @Column(name = "game_name")
     private String nameGame;
-    private long user_id;
-    private long bot_id;
-    private String user_field;
-    private String bot_field;
+    @Column(name = "user_id")
+    private long userId;
+    @Column(name = "bot_id")
+    private long botId;
+    @Column(name = "user_field")
+    private String userField;
+    @Column(name = "bot_field")
+    private String botField;
+    @Column(name = "turn")
     private int turn;
 
-    public SavedGame(UUID id, String nameGame, long user_id, long bot_id, String user_field, String bot_field, int turn) {
+    public SavedGame(UUID id, String nameGame, long userId, long botId, String userField, String botField, int turn) {
         this.id = id;
         this.nameGame = nameGame;
-        this.user_id = user_id;
-        this.bot_id = bot_id;
-        this.user_field = user_field;
-        this.bot_field = bot_field;
+        this.userId = userId;
+        this.botId = botId;
+        this.userField = userField;
+        this.botField = botField;
         this.turn = turn;
+    }
+
+    public SavedGame() {
     }
 
     public UUID getId() {
@@ -37,36 +53,36 @@ public class SavedGame {
         this.nameGame = nameGame;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public long getBot_id() {
-        return bot_id;
+    public long getBotId() {
+        return botId;
     }
 
-    public void setBot_id(long bot_id) {
-        this.bot_id = bot_id;
+    public void setBotId(long botId) {
+        this.botId = botId;
     }
 
-    public String getUser_field() {
-        return user_field;
+    public String getUserField() {
+        return userField;
     }
 
-    public void setUser_field(String user_field) {
-        this.user_field = user_field;
+    public void setUserField(String userField) {
+        this.userField = userField;
     }
 
-    public String getBot_field() {
-        return bot_field;
+    public String getBotField() {
+        return botField;
     }
 
-    public void setBot_field(String bot_field) {
-        this.bot_field = bot_field;
+    public void setBotField(String botField) {
+        this.botField = botField;
     }
 
     public int getTurn() {
