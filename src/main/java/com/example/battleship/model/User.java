@@ -2,20 +2,32 @@ package com.example.battleship.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
-@Entity(name = "user")
+@Entity(name = "\"user\"")
 public class User {
 
     @Id
+    @SequenceGenerator(
+        name = "user_id_generator",
+        sequenceName = "user_user_id_seq",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "user_id_generator"
+    )
     @Column(name = "user_id")
-    private long id;
+    private Long id;
     @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
 
-    public User(long id, String login, String password) {
+    public User(Long id, String login, String password) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -25,11 +37,11 @@ public class User {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
