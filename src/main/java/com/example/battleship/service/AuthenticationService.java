@@ -12,7 +12,12 @@ public class AuthenticationService {
         this.userRepository = userRepository;
     }
 
-    public long registration(User user){
+    public long registration(User user) {
         return userRepository.save(user).getId();
+    }
+
+    public boolean authorization(User user) {
+        var user1 = userRepository.getUserByLogin(user.getLogin());
+        return user1.isPresent();
     }
 }
