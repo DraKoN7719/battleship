@@ -21,7 +21,7 @@ public class AuthenticationService {
     }
 
     public boolean authorization(User user) {
-        var user1 = userRepository.getUserByLoginAndPassword(user.getLogin(), user.getPassword());
+        var user1 = userRepository.getUserByLogin(user.getLogin());
         return user1.isPresent();
     }
 
