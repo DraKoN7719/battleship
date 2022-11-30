@@ -6,19 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
-@Entity(name = "placement")
+@Entity
+@Table(name = "placement")
 @IdClass(PlacementPK.class)
 public class Placement {
     @Id
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
     @Id
     @Column(name = "placement")
     private String placement;
     @Column(name = "placement_name")
     private String placementName;
-
 
     public Placement(String placementName, long userId, String placement) {
         this.placementName = placementName;
@@ -37,11 +38,11 @@ public class Placement {
         this.placementName = placementName;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

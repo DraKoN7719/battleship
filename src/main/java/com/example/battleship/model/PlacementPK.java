@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class PlacementPK implements Serializable {
 
-    private long userId;
+    private Long userId;
     private String placement;
 
     public PlacementPK(long userId, String placement) {
