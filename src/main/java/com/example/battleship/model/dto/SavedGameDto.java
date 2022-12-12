@@ -1,31 +1,19 @@
-package com.example.battleship.model;
+package com.example.battleship.model.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.UUID;
 
-@Entity
-@Table(name = "save_game")
-public class SavedGame {
-    @Id
-    @Column(name = "game_id")
+public class SavedGameDto {
     private UUID id;
-    @Column(name = "game_name")
     private String nameGame;
-    @Column(name = "user_id")
     private Long userId;
-    @Column(name = "bot_id")
     private Long botId;
-    @Column(name = "user_field")
-    private String userField;
-    @Column(name = "bot_field")
-    private String botField;
-    @Column(name = "turn")
+    private int[][] userField;
+    private int[][] botField;
     private Integer turn;
 
-    public SavedGame(UUID id, String nameGame, Long userId, Long botId, String userField, String botField, Integer turn) {
+    public SavedGameDto(UUID id, String nameGame, Long userId, Long botId, int[][] userField, int[][] botField, Integer turn) {
         this.id = id;
         this.nameGame = nameGame;
         this.userId = userId;
@@ -35,7 +23,7 @@ public class SavedGame {
         this.turn = turn;
     }
 
-    public SavedGame() {
+    public SavedGameDto() {
     }
 
     public UUID getId() {
@@ -70,19 +58,19 @@ public class SavedGame {
         this.botId = botId;
     }
 
-    public String getUserField() {
+    public int[][] getUserField() {
         return userField;
     }
 
-    public void setUserField(String userField) {
+    public void setUserField(int[][] userField) {
         this.userField = userField;
     }
 
-    public String getBotField() {
+    public int[][] getBotField() {
         return botField;
     }
 
-    public void setBotField(String botField) {
+    public void setBotField(int[][] botField) {
         this.botField = botField;
     }
 

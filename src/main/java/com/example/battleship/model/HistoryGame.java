@@ -3,24 +3,26 @@ package com.example.battleship.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
-@Entity(name = "history_game")
+@Entity
+@Table(name = "history_game")
 public class HistoryGame {
     @Id
     @Column(name = "game_id")
     private UUID id;
-    @Column(name = "user_id")
-    private long userId;
-    @Column(name = "opponent_id")
-    private long opponentId;
+    @Column(name = "player1")
+    private Long player1;
+    @Column(name = "player2")
+    private Long player2;
     @Column(name = "result")
-    private long resultGame;
+    private Long resultGame;
 
-    public HistoryGame(UUID id, long userId, long opponentId, long resultGame) {
+    public HistoryGame(UUID id, Long player1, Long player2, Long resultGame) {
         this.id = id;
-        this.userId = userId;
-        this.opponentId = opponentId;
+        this.player1 = player1;
+        this.player2 = player2;
         this.resultGame = resultGame;
     }
 
@@ -35,27 +37,27 @@ public class HistoryGame {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public Long getPlayer1() {
+        return player1;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setPlayer1(Long userId) {
+        this.player1 = userId;
     }
 
-    public long getOpponentId() {
-        return opponentId;
+    public Long getPlayer2() {
+        return player2;
     }
 
-    public void setOpponentId(long opponentId) {
-        this.opponentId = opponentId;
+    public void setPlayer2(Long opponentId) {
+        this.player2 = opponentId;
     }
 
-    public long getResultGame() {
+    public Long getResultGame() {
         return resultGame;
     }
 
-    public void setResultGame(long resultGame) {
+    public void setResultGame(Long resultGame) {
         this.resultGame = resultGame;
     }
 }

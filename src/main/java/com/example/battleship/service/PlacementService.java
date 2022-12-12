@@ -28,7 +28,7 @@ public class PlacementService {
     }
 
     public Placement getPlacement(Long userId, String placementName) {
-        return placementRepository.findPlacementByUserIdAndAndPlacementName(userId, placementName).get();
+        return placementRepository.findPlacementByUserIdAndAndPlacementName(userId, placementName).orElse(null);
     }
 
     @Transactional

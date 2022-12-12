@@ -1,6 +1,6 @@
 package com.example.battleship.web;
 
-import com.example.battleship.model.dto.PlacementDTO;
+import com.example.battleship.model.dto.PlacementDto;
 import com.example.battleship.service.PlacementService;
 import com.example.battleship.utils.Converters;
 import org.springframework.http.ResponseEntity;
@@ -22,43 +22,43 @@ public class PlacementController {
         this.placementService = placementService;
     }
 
-    @GetMapping("api/placement/random")
+    @GetMapping("/api/placement/random")
     public ResponseEntity<int[][]> placeRandom() {
         return ResponseEntity.ok(placementService.placeRandom());
     }
 
-    @GetMapping("api/placement/shores")
+    @GetMapping("/api/placement/shores")
     public ResponseEntity<int[][]> placeShores() {
         return ResponseEntity.ok(placementService.placeShores());
     }
 
-    @GetMapping("api/placement/halfField")
+    @GetMapping("/api/placement/halfField")
     public ResponseEntity<int[][]> placeHalfField() {
         return ResponseEntity.ok(placementService.placeHalfField());
     }
 
-    @GetMapping("api/placement/{userId}")
-    public ResponseEntity<List<PlacementDTO>> getPlacements(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(Converters.convertToPlacementDTOs(placementService.getPlacementsByUserId(userId)));
+    @GetMapping("/api/placement/{userId}")
+    public ResponseEntity<List<PlacementDto>> getPlacements(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(Converters.convertToPlacementDtos(placementService.getPlacementsByUserId(userId)));
     }
 
-    @PostMapping("api/placement/{userId}")
-    public ResponseEntity<PlacementDTO> getPlacement(
+    @PostMapping("/api/placement/{userId}")
+    public ResponseEntity<PlacementDto> getPlacement(
         @PathVariable("userId") Long userId,
         @RequestBody String placementName
     ) {
         return ResponseEntity.ok(Converters.convertToPlacementDTO(placementService.getPlacement(userId, placementName)));
     }
 
-    @PostMapping("api/placement")
+    @PostMapping("/api/placement")
     public ResponseEntity<Void> savePlacement(
-        @RequestBody PlacementDTO placementDTO
+        @RequestBody PlacementDto placementDTO
     ) {
         placementService.savePlacement(Converters.convertToPlacement(placementDTO));
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("api/placement/{userId}")
+    @DeleteMapping("/api/placement/{userId}")
     public ResponseEntity<Void> deletePlacement(
         @PathVariable("userId") Long userId,
         @RequestParam("placementName") String placementName

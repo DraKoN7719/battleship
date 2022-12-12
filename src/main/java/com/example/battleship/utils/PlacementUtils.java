@@ -2,6 +2,34 @@ package com.example.battleship.utils;
 
 public class PlacementUtils {
 
+    public static int[][] maskField(int[][] field) {
+        int[][] maskedField = new int[field.length][field.length];
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                if (field[i][j] == 1 || field[i][j] % 2 == 0) {
+                    maskedField[i][j] = 0;
+                } else {
+                    maskedField[i][j] = field[i][j];
+                }
+            }
+        }
+        return maskedField;
+    }
+
+    public static int[][] maskUserField(int[][] field) {
+        int[][] maskedField = new int[field.length][field.length];
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                if (field[i][j] % 2 == 0) {
+                    maskedField[i][j] = 0;
+                } else {
+                    maskedField[i][j] = field[i][j];
+                }
+            }
+        }
+        return maskedField;
+    }
+
     public static int[][] placementToArray(String placement) {
         int[][] placementArray = new int[10][10];
         for (int i = 0, k = 0; i < 10; i++) {
@@ -48,7 +76,8 @@ public class PlacementUtils {
         }
 
         for (int i = startY, counterY = 0; i < placement.length && counterY < numberOfRoundsByY; i++, counterY++) {
-            for (int j = startX, counterX = 0; j < placement[i].length && counterX < numberOfRoundsByX; j++, counterX++) {
+            for (int j = startX, counterX = 0;
+                 j < placement[i].length && counterX < numberOfRoundsByX; j++, counterX++) {
                 //Проверка внешних границ
                 if (!(placement[i][j] % 2 == 0)) {
                     return false;
@@ -80,13 +109,13 @@ public class PlacementUtils {
             }
         }
         for (int y = 0; y < placement.length - 1; y++) {
-            if(placement[y][placement[y].length - 1] == 0 && placement[y + 1][placement[y].length - 1] == 0) {
+            if (placement[y][placement[y].length - 1] == 0 && placement[y + 1][placement[y].length - 1] == 0) {
                 putShip(placement, 2, y, placement[y].length - 1, false);
                 return true;
             }
         }
         for (int x = 0; x < placement[0].length - 1; x++) {
-            if(placement[placement.length - 1][x] == 0 && placement[placement.length - 1][x + 1] == 0) {
+            if (placement[placement.length - 1][x] == 0 && placement[placement.length - 1][x + 1] == 0) {
                 putShip(placement, 2, x, placement[x].length - 1, true);
                 return true;
             }
