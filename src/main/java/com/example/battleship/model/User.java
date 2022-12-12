@@ -6,14 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-@Entity(name = "\"user\"")
+@Entity
+@Table(name = "\"user\"")
 public class User {
 
     @Id
     @SequenceGenerator(
         name = "user_id_generator",
         sequenceName = "user_user_id_seq",
+        initialValue = 5,
         allocationSize = 1
     )
     @GeneratedValue(
