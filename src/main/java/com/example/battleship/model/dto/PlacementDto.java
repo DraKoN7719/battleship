@@ -1,11 +1,11 @@
 package com.example.battleship.model.dto;
 
-public class PlacementDTO {
+public class PlacementDto {
     private Long userId;
     private int[][] placement;
     private String placementName;
 
-    public PlacementDTO(String placementName, Long userId, int[][] placement) {
+    public PlacementDto(String placementName, Long userId, int[][] placement) {
         this.placementName = placementName;
         this.userId = userId;
         this.placement = placement;
