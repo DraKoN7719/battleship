@@ -20,12 +20,13 @@ public class CorsFilter {
                         .allowedOrigins("http://localhost:3000")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("Origin", "Access-Control-Allow-Origin", "Content-Type", "Accept",
-                                        "Authorization", "Origin, Accept", "X-Requested-With",
-                                        "Access-Control-Request-Method", "Access-Control-Request-Headers")
+                                "Authorization", "Origin, Accept", "X-Requested-With",
+                                "Access-Control-Request-Method", "Access-Control-Request-Headers")
                         .exposedHeaders("Origin", "Total-Count", "Content-Type", "Accept", "Authorization",
-                                        "Access-Control-Allow-Origin", "Access-Control-Allow-Origin",
-                                        "Access-Control-Allow-Credentials")
+                                "Access-Control-Allow-Origin", "Access-Control-Allow-Origin",
+                                "Access-Control-Allow-Credentials")
                         .allowCredentials(true);
+                registry.addMapping("/**").allowCredentials(true).allowedOrigins("*").allowedMethods("*");
                 WebMvcConfigurer.super.addCorsMappings(registry);
             }
 
