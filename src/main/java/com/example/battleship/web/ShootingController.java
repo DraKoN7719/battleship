@@ -2,6 +2,7 @@ package com.example.battleship.web;
 
 import com.example.battleship.model.Bot;
 import com.example.battleship.utils.Cords;
+import com.example.battleship.utils.idStrat;
 import com.example.battleship.model.User;
 import com.example.battleship.service.AuthenticationService;
 import com.example.battleship.service.ShootingService;
@@ -27,8 +28,15 @@ public class ShootingController {
     }
 
     @PostMapping("/api/shootComp")
-    public ResponseEntity<Cords> shootComp(@RequestBody Cords cords) {
-        return ResponseEntity.ok(shootingService.getShoot(cords.getId()));
+    public ResponseEntity<Cords> shootComp(@RequestBody idStrat cords) {
+        Cords cord = null;
+        if(cords.getStrat() == 0)
+        cord = shootingService.getShootRandom(cords.getId());
+        if(cords.getStrat() == 1)
+            cord = shootingService.getShootShah(cords.getId());
+        if(cords.getStrat() == 2)
+            cord = shootingService.getShootDiaf(cords.getId());
+        return ResponseEntity.ok(cord);
     }
 
     @PostMapping("/api/setPolePlayer")

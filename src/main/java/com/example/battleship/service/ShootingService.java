@@ -21,13 +21,12 @@ public class ShootingService {
     }
 
     // 0-пусто 1-корабль 2-подбитый корабль 3-убитый -1 - мимо 4-клетки куда стрелять не будет но стрелять можно
-    public Cords getShoot(int id) {
+    public Cords getShootRandom(int id) {
         Random r = new Random();
         print(map.getPolePlayer(id));
         int x, y;
         Cords paddedCords = findPadded(map.getPolePlayer(id));
         if (paddedCords != null) {
-            System.out.println("Добиваю");
             x = paddedCords.getX();                                                                     //добивание
             y = paddedCords.getY();
             int direction = finDirection(map.getPolePlayer(id), x, y);
@@ -46,7 +45,6 @@ public class ShootingService {
             }
 
         } else {
-            System.out.println("Рандомно");
             ArrayList<Cords> cords = findFreeSquare(map.getPolePlayer(id));                                                 //рандомный выстрел
             Cords shoot = cords.get(r.nextInt(cords.size())); //выбрали рандом клетку
             x = shoot.getX();
@@ -61,6 +59,93 @@ public class ShootingService {
                 map.getPolePlayer(id)[x][y] = -1;//не попали
             }
         }
+
+        return new Cords(id, x, y);
+    }
+
+
+    public Cords getShootShah(int id) {
+        Random r = new Random();
+        int x, y;
+        Cords paddedCords = findPadded(map.getPolePlayer(id));
+        if (paddedCords != null) {
+            x = paddedCords.getX();                                                                     //добивание
+            y = paddedCords.getY();
+            int direction = finDirection(map.getPolePlayer(id), x, y);
+            Cords shoot = shootDirection(map.getPolePlayer(id), x, y, r, direction);
+            x = shoot.getX();
+            y = shoot.getY();
+
+            if (map.getPolePlayer(id)[x][y] == 1) {
+                map.getPolePlayer(id)[x][y] = 2;//попали
+                if (isDeadComp(map.getPolePlayer(id), x, y)) {
+                    setDead(id, x, y);
+                    setArea(x, y, id);
+                }
+            } else {
+                map.getPolePlayer(id)[x][y] = -1;//не попали
+            }
+
+        } else {
+            ArrayList<Cords> cords = findFreeSquareShah(map.getPolePlayer(id));                                                 //рандомный выстрел
+            if (cords.size() == 0) cords = findFreeSquare(map.getPolePlayer(id));
+            Cords shoot = cords.get(r.nextInt(cords.size())); //выбрали рандом клетку
+            x = shoot.getX();
+            y = shoot.getY();
+            if (map.getPolePlayer(id)[x][y] == 1) {
+                map.getPolePlayer(id)[x][y] = 2;//попали
+                if (isDeadComp(map.getPolePlayer(id), x, y)) {
+                    setDead(id, x, y);
+                    setArea(x, y, id);
+                }
+            } else {
+                map.getPolePlayer(id)[x][y] = -1;//не попали
+            }
+        }
+
+        return new Cords(id, x, y);
+    }
+
+
+    public Cords getShootDiaf(int id) {
+        Random r = new Random();
+        int x, y;
+        Cords paddedCords = findPadded(map.getPolePlayer(id));
+        if (paddedCords != null) {
+            x = paddedCords.getX();                                                                     //добивание
+            y = paddedCords.getY();
+            int direction = finDirection(map.getPolePlayer(id), x, y);
+            Cords shoot = shootDirection(map.getPolePlayer(id), x, y, r, direction);
+            x = shoot.getX();
+            y = shoot.getY();
+
+            if (map.getPolePlayer(id)[x][y] == 1) {
+                map.getPolePlayer(id)[x][y] = 2;//попали
+                if (isDeadComp(map.getPolePlayer(id), x, y)) {
+                    setDead(id, x, y);
+                    setArea(x, y, id);
+                }
+            } else {
+                map.getPolePlayer(id)[x][y] = -1;//не попали
+            }
+
+        } else {
+            ArrayList<Cords> cords = findFreeSquareDiag(map.getPolePlayer(id));                                                 //рандомный выстрел
+            if (cords.size() == 0) cords = findFreeSquare(map.getPolePlayer(id));
+            Cords shoot = cords.get(r.nextInt(cords.size())); //выбрали рандом клетку
+            x = shoot.getX();
+            y = shoot.getY();
+            if (map.getPolePlayer(id)[x][y] == 1) {
+                map.getPolePlayer(id)[x][y] = 2;//попали
+                if (isDeadComp(map.getPolePlayer(id), x, y)) {
+                    setDead(id, x, y);
+                    setArea(x, y, id);
+                }
+            } else {
+                map.getPolePlayer(id)[x][y] = -1;//не попали
+            }
+        }
+
         return new Cords(id, x, y);
     }
 
@@ -232,6 +317,24 @@ public class ShootingService {
         return cords;
     }
 
+    private ArrayList<Cords> findFreeSquareShah(int[][] pole) {
+        ArrayList<Cords> cords = new ArrayList<>();
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                if ((pole[i][j] == 0 || pole[i][j] == 1) && ((i % 2 == 0 && j % 2 == 1) || (i % 2 != 0 && j % 2 != 1)))
+                    cords.add(new Cords(0, i, j));
+        return cords;
+    }
+
+    private ArrayList<Cords> findFreeSquareDiag(int[][] pole) {
+        ArrayList<Cords> cords = new ArrayList<>();
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                if ((pole[i][j] == 0 || pole[i][j] == 1) && ((i == j) || (i == 9-j)))
+                    cords.add(new Cords(0, i, j));
+        return cords;
+    }
+
     public int getShootResult(int id, int x, int y) {
         if (map.getPoleComp(id) == null) {
             map.putComp(id, placementService.placeRandom());
@@ -259,7 +362,6 @@ public class ShootingService {
     }
 
     private boolean isDead(int[][] pole, int x, int y) {
-
         int n = 1;
         while (inBoard(x + n, y) && pole[x + n][y] == -1) {
             n++;
@@ -292,7 +394,7 @@ public class ShootingService {
             n++;
         }
         if (inBoard(x + n, y) && (pole[x + n][y] == 1)) {
-            System.out.println("ОН ЖИВ 1");
+
             return false;
         }
         n = 1;
@@ -301,7 +403,7 @@ public class ShootingService {
             n++;
         }
         if (inBoard(x - n, y) && (pole[x - n][y] == 1)) {
-            System.out.println("ОН ЖИВ 2");
+
             return false;
         }
         n = 1;
@@ -310,7 +412,7 @@ public class ShootingService {
             n++;
         }
         if (inBoard(x, y + n) && (pole[x][y + n] == 1)) {
-            System.out.println("ОН ЖИВ 3");
+
             return false;
         }
         n = 1;
@@ -319,7 +421,6 @@ public class ShootingService {
             n++;
         }
         if (inBoard(x, y - n) && (pole[x][y - n] == 1)) {
-            System.out.println("ОН ЖИВ 4");
             return false;
         }
         System.out.println("ОН УМЕР");
