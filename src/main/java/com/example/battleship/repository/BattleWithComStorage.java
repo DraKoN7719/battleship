@@ -13,9 +13,6 @@ public class BattleWithComStorage {
         return mapComp.get(id);
     }
 
-    public void makeShoot(int id, int x, int y){
-        mapComp.get(id)[x][y]=2;
-    }
 
     public void putPlayer(int id, int[][] polePlayer){
         mapPlayer.put(id,polePlayer);
@@ -23,9 +20,4 @@ public class BattleWithComStorage {
     public int[][] getPolePlayer(int id){
         return mapPlayer.get(id);
     }
-
-    public void makeShootPlayer(int id, int x, int y){
-        mapPlayer.get(id)[x][y]=2;
-    }
-
 }
