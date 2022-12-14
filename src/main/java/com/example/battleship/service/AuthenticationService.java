@@ -29,6 +29,9 @@ public class AuthenticationService {
     @Transactional
     public AuthenticationDto registration(User user) {
         user.setPassword(encryption(user.getPassword()));
+        if(isAI(user.getLogin())) {
+            return new AuthenticationDto(null, user.getLogin(), StatusAuth.INVALID_LOGIN_REGISTRATION);
+        }
         if(userRepository.findUserByLogin(user.getLogin()).isPresent()){
             return new AuthenticationDto(null, user.getLogin(), StatusAuth.INVALID_LOGIN);
         }

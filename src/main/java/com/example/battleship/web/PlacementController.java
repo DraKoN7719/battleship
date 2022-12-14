@@ -51,11 +51,11 @@ public class PlacementController {
     }
 
     @PostMapping("/api/placement")
-    public ResponseEntity<Void> savePlacement(
+    public ResponseEntity<Boolean> savePlacement(
+        @RequestParam(value = "isOverwrite", required = false, defaultValue = "false") boolean isOverwrite,
         @RequestBody PlacementDto placementDTO
     ) {
-        placementService.savePlacement(Converters.convertToPlacement(placementDTO));
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(placementService.savePlacement(Converters.convertToPlacement(placementDTO), isOverwrite));
     }
 
     @DeleteMapping("/api/placement/{userId}")

@@ -8,6 +8,7 @@ import com.example.battleship.model.dto.SavedGameDto;
 import java.util.List;
 
 import static com.example.battleship.utils.PlacementUtils.maskField;
+import static com.example.battleship.utils.PlacementUtils.maskUserField;
 import static com.example.battleship.utils.PlacementUtils.placementToArray;
 import static com.example.battleship.utils.PlacementUtils.placementToString;
 
@@ -34,14 +35,14 @@ public class Converters {
                                 savedGame.getNameGame(),
                                 savedGame.getUserId(),
                                 savedGame.getBotId(),
-                                placementToArray(savedGame.getUserField()),
+                                maskUserField(placementToArray(savedGame.getUserField())),
                                 maskField(placementToArray(savedGame.getBotField())),
                                 savedGame.getTurn());
     }
 
     public static SavedGame convertToSavedGame(SavedGameDto savedGameDto) {
         return new SavedGame(savedGameDto.getId(),
-                             savedGameDto.getNameGame(),
+                             savedGameDto.getGameName(),
                              savedGameDto.getUserId(),
                              savedGameDto.getBotId(),
                              placementToString(savedGameDto.getUserField()),

@@ -1,9 +1,11 @@
 package com.example.battleship.web;
 
 import com.example.battleship.model.HistoryGame;
+import com.example.battleship.model.dto.HistoryGameDto;
 import com.example.battleship.service.HistoryGameService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +24,12 @@ public class HistoryGameController {
         this.historyGameService = historyGameService;
     }
 
-    @GetMapping("/api/history-game")
-    public ResponseEntity<List<HistoryGame>> getGamesByUserId(@RequestParam("userId") Long userId) {
+    @GetMapping("/api/history-game/{userId}")
+    public ResponseEntity<List<HistoryGameDto>> getGamesByUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(historyGameService.getGamesByUser(userId));
     }
 
-    @PostMapping("/pi/history-game")
+    @PostMapping("/api/history-game")
     public ResponseEntity<HistoryGame> getGameByUserId(@RequestParam("gameId") UUID gameId) {
         return ResponseEntity.ok(historyGameService.getGame(gameId));
     }

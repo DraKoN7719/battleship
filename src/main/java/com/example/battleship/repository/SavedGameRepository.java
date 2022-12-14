@@ -11,4 +11,6 @@ import java.util.UUID;
 @Repository
 public interface SavedGameRepository extends JpaRepository<SavedGame, UUID> {
     List<SavedGame> findAllByUserId (Long userId);
+
+    Optional<SavedGame> findByNameGameAndUserId(String nameGame, Long userId);
 }

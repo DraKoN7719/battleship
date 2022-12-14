@@ -14,19 +14,19 @@ public class AuthenticationDto {
         this.status = status;
     }
 
-    public Long getUserId() {
+    public Long getId() {
         return id;
     }
 
-    public void setUserId(Long userId) {
+    public void setId(Long userId) {
         this.id = userId;
     }
 
-    public String getUserName() {
+    public String getLogin() {
         return login;
     }
 
-    public void setUserName(String userName) {
+    public void setLogin(String userName) {
         this.login = userName;
     }
 

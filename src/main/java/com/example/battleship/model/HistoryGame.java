@@ -17,13 +17,13 @@ public class HistoryGame {
     @Column(name = "player2")
     private Long player2;
     @Column(name = "result")
-    private Long resultGame;
+    private Long result;
 
-    public HistoryGame(UUID id, Long player1, Long player2, Long resultGame) {
+    public HistoryGame(UUID id, Long player1, Long player2, Long result) {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;
-        this.resultGame = resultGame;
+        this.result = result;
     }
 
     public HistoryGame() {
@@ -53,11 +53,11 @@ public class HistoryGame {
         this.player2 = opponentId;
     }
 
-    public Long getResultGame() {
-        return resultGame;
+    public Long getResult() {
+        return result;
     }
 
-    public void setResultGame(Long resultGame) {
-        this.resultGame = resultGame;
+    public void setResult(Long result) {
+        this.result = result;
     }
 }

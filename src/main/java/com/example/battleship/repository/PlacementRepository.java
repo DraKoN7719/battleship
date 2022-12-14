@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface PlacementRepository extends JpaRepository<Placement, PlacementPK> {
     List<Placement> findAllByUserIdOrderByPlacementName(Long userId);
 
-    Optional<Placement> findPlacementByUserIdAndAndPlacementName(@NotNull Long userId, @NotNull String placementName);
+    Optional<Placement> findPlacementByUserIdAndPlacementName(@NotNull Long userId, @NotNull String placementName);
 
     void deleteByUserIdAndPlacementName(@NotNull Long userId, @NotNull String placementName);
 }

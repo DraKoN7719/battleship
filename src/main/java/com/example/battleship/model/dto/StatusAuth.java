@@ -4,5 +4,6 @@ public enum StatusAuth {
     SUCCESS,
     NOT_FOUND,
     INVALID_PASSWORD,
-    INVALID_LOGIN
+    INVALID_LOGIN,
+    INVALID_LOGIN_REGISTRATION
 }

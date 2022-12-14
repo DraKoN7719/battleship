@@ -28,12 +28,25 @@ public class PlacementService {
     }
 
     public Placement getPlacement(Long userId, String placementName) {
-        return placementRepository.findPlacementByUserIdAndAndPlacementName(userId, placementName).orElse(null);
+        return placementRepository.findPlacementByUserIdAndPlacementName(userId, placementName).orElse(null);
     }
 
     @Transactional
-    public void savePlacement(Placement placement) {
-        placementRepository.save(placement);
+    public boolean savePlacement(Placement placement, boolean isOverwrite) {
+        var place = placementRepository.findPlacementByUserIdAndPlacementName(placement.getUserId(), placement.getPlacementName());
+        if(isOverwrite) {
+            if(place.isPresent()) {
+                placementRepository.delete(place.get());
+                placementRepository.flush();
+            }
+            placementRepository.saveAndFlush(placement);
+        } else {
+            if(place.isPresent()) {
+                return true;
+            }
+            placementRepository.save(placement);
+        }
+        return false;
     }
 
     @Transactional

@@ -26,8 +26,22 @@ public class SavedGameService {
     }
 
     @Transactional
-    public void saveGame(SavedGame savedGame) {
-        savedGameRepository.save(savedGame);
+    public boolean saveGame(SavedGame savedGame, boolean isOverwrite) {
+        var game = savedGameRepository.findByNameGameAndUserId(savedGame.getNameGame(), savedGame.getUserId());
+        if (isOverwrite) {
+            if(game.isPresent()) {
+                savedGameRepository.delete(game.get());
+                savedGameRepository.flush();
+            }
+            savedGameRepository.save(savedGame);
+        } else {
+            if
+            (game.isPresent()) {
+                return true;
+            }
+            savedGameRepository.save(savedGame);
+        }
+        return false;
     }
 
     @Transactional

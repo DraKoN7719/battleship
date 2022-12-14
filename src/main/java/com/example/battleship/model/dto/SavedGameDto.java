@@ -1,21 +1,19 @@
 package com.example.battleship.model.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.util.UUID;
 
 public class SavedGameDto {
     private UUID id;
-    private String nameGame;
+    private String gameName;
     private Long userId;
     private Long botId;
     private int[][] userField;
     private int[][] botField;
     private Integer turn;
 
-    public SavedGameDto(UUID id, String nameGame, Long userId, Long botId, int[][] userField, int[][] botField, Integer turn) {
+    public SavedGameDto(UUID id, String gameName, Long userId, Long botId, int[][] userField, int[][] botField, Integer turn) {
         this.id = id;
-        this.nameGame = nameGame;
+        this.gameName = gameName;
         this.userId = userId;
         this.botId = botId;
         this.userField = userField;
@@ -34,12 +32,12 @@ public class SavedGameDto {
         this.id = id;
     }
 
-    public String getNameGame() {
-        return nameGame;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setNameGame(String nameGame) {
-        this.nameGame = nameGame;
+    public void setGameName(String nameGame) {
+        this.gameName = nameGame;
     }
 
     public Long getUserId() {
