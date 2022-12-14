@@ -30,7 +30,10 @@ public class GameOnlineService {
     }
 
     public void deleteGameOnline(UUID id) {
-        listLobby.stream().filter((x) -> x.getId().equals(id)).forEach(listGame::add);
+        listLobby.stream().filter((x) -> x.getId().equals(id)).forEach(x -> {
+            if (listGame.stream().filter(y -> y.getId().equals(id)).count() == 0)
+                listGame.add(x);
+        });
         for (GameOnlineDTO element : listLobby) {
             if (element.getId().equals(id)) listLobby.remove(element);
             break;
@@ -43,4 +46,96 @@ public class GameOnlineService {
             break;
         }
     }
+
+    public String userHit(GameOnlineDTO gameOnlineDTO) {
+        System.out.println("List");
+        listGame.forEach(System.out::println);
+        if (gameOnlineDTO.getPlayer1() == null) {
+            for (GameOnlineDTO element : listGame) {
+                System.out.println("Не хост");
+                System.out.println(element);
+                if (element.getId().equals(gameOnlineDTO.getId())) {
+                    switch (getShootResult(element.getFieldPlayer1(), gameOnlineDTO.getX(), gameOnlineDTO.getY())) {
+                        case 0:
+                            return "МИМО";
+                        case 1:
+                            return "ПОПАЛ";
+                        case 2:
+                            return "УБИЛ";
+                    }
+                }
+                break;
+            }
+        } else {
+            for (GameOnlineDTO element : listGame) {
+                if (element.getId().equals(gameOnlineDTO.getId())) {
+                    System.out.println("Хост");
+                    System.out.println(element);
+                    switch (getShootResult(element.getFieldPlayer2(), gameOnlineDTO.getX(), gameOnlineDTO.getY())) {
+                        case 0:
+                            return "МИМО";
+                        case 1:
+                            return "ПОПАЛ";
+                        case 2:
+                            return "УБИЛ";
+                    }
+                }
+                break;
+            }
+        }
+        return "";
+    }
+
+
+    public boolean inBoard(int x, int y) {
+        return x < 10 && x > -1 && y < 10 && y > -1;
+    }
+
+    public int getShootResult(int[][] pole, int x, int y) {
+        if (pole[x][y] != 1) {
+            pole[x][y] = -2;
+            return 0;
+        } else {
+            pole[x][y] = -1;
+            if (isDead(pole, x, y))
+                if (isVin(pole)) return 3;
+                else
+                    return 2;
+            return 1;
+        }
+    }
+
+    private boolean isVin(int[][] pole) {
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                if (pole[i][j] == 1) return false;
+        return true;
+    }
+
+    private boolean isDead(int[][] pole, int x, int y) {
+        int n = 1;
+        while (inBoard(x + n, y) && pole[x + n][y] == -1) {
+            n++;
+        }
+        if (inBoard(x + n, y) && pole[x + n][y] == 1) return false;
+        n = 1;
+
+        while (inBoard(x - n, y) && pole[x - n][y] == -1) {
+            n++;
+        }
+        if (inBoard(x - n, y) && pole[x - n][y] == 1) return false;
+        n = 1;
+
+        while (inBoard(x, y + n) && pole[x][y + n] == -1) {
+            n++;
+        }
+        if (inBoard(x, y + n) && pole[x][y + n] == 1) return false;
+        n = 1;
+
+        while (inBoard(x, y - n) && pole[x][y - n] == -1) {
+            n++;
+        }
+        return !inBoard(x, y - n) || pole[x][y - n] != 1;
+    }
+
 }
