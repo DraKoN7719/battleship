@@ -42,24 +42,27 @@ public class GameController {
                 gameOnlineDTO.setStatus("");
                 gameOnlineService.addGameOnline(gameOnlineDTO);
                 template.convertAndSendToUser(gameOnlineDTO.getId().toString(), "/game",
-                        new MessageDTO("JOIN", gameOnlineDTO.getPlayer1(), "", ""));
+                        new MessageDTO("JOIN", gameOnlineDTO.getPlayer1(), "", "", -1, -1));
                 break;
             }
             case "JOIN_PLAYER_2": {
                 gameOnlineDTO.setStatus("START_GAME");
                 gameOnlineService.setGameOnline(gameOnlineDTO);
                 template.convertAndSendToUser(gameOnlineDTO.getId().toString(), "/game",
-                        new MessageDTO("JOIN_PLAYER_2", gameOnlineDTO.getPlayer2(), "", ""));
+                        new MessageDTO("JOIN_PLAYER_2", gameOnlineDTO.getPlayer2(), "", "", -1, -1));
                 gameOnlineService.deleteGameOnline(gameOnlineDTO.getId());
                 break;
             }
             case "MOTION": {
-
+                template.convertAndSendToUser(gameOnlineDTO.getId().toString(), "/game",
+                        new MessageDTO(gameOnlineService.userHit(gameOnlineDTO), gameOnlineDTO.getPlayer1() == null ? gameOnlineDTO.getPlayer2() : gameOnlineDTO.getPlayer1(),
+                                "", "", gameOnlineDTO.getX(), gameOnlineDTO.getY()));
                 break;
             }
             case "DISCONNECTION": {
                 template.convertAndSendToUser(gameOnlineDTO.getId().toString(), "/game",
-                        new MessageDTO("DISCONNECTION", gameOnlineDTO.getPlayer1() == null ? gameOnlineDTO.getPlayer2() : gameOnlineDTO.getPlayer1(), "", ""));
+                        new MessageDTO("DISCONNECTION", gameOnlineDTO.getPlayer1() == null ? gameOnlineDTO.getPlayer2() : gameOnlineDTO.getPlayer1(),
+                                "", "", -1, -1));
                 gameOnlineService.deleteGame(gameOnlineDTO.getId());
                 break;
             }

@@ -5,13 +5,18 @@ public class MessageDTO {
     private long id;
     private String field;
     private String resultAttack;
+    private int x;
+    private int y;
 
-    public MessageDTO(String status, long id, String field, String resultAttack) {
+    public MessageDTO(String status, long id, String field, String resultAttack, int x, int y) {
         this.status = status;
         this.id = id;
         this.field = field;
         this.resultAttack = resultAttack;
+        this.x = x;
+        this.y = y;
     }
+
 
     public String getStatus() {
         return status;
@@ -43,5 +48,21 @@ public class MessageDTO {
 
     public void setResultAttack(String resultAttack) {
         this.resultAttack = resultAttack;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
