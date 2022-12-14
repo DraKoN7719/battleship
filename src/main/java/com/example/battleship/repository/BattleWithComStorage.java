@@ -3,8 +3,8 @@ package com.example.battleship.repository;
 import java.util.HashMap;
 
 public class BattleWithComStorage {
-    private HashMap<Integer,int[][]> mapPlayer = new HashMap<>();
-    private HashMap<Integer,int[][]> mapComp = new HashMap<>();
+    private final HashMap<Integer,int[][]> mapPlayer = new HashMap<>();
+    private final HashMap<Integer,int[][]> mapComp = new HashMap<>();
 
     public void putComp(int id, int[][] poleComp){
         mapComp.put(id,poleComp);
