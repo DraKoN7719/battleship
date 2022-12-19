@@ -50,12 +50,8 @@ public class GameOnlineService {
     }
 
     public String userHit(GameOnlineDTO gameOnlineDTO) {
-        System.out.println("List");
-        listGame.forEach(System.out::println);
         if (gameOnlineDTO.getPlayer1() == null) {
             for (GameOnlineDTO element : listGame) {
-                System.out.println("Не хост");
-                System.out.println(element);
                 if (element.getId().equals(gameOnlineDTO.getId())) {
                     switch (getShootResult(element.getFieldPlayer1(), gameOnlineDTO.getX(), gameOnlineDTO.getY())) {
                         case 0:
@@ -72,8 +68,6 @@ public class GameOnlineService {
         } else {
             for (GameOnlineDTO element : listGame) {
                 if (element.getId().equals(gameOnlineDTO.getId())) {
-                    System.out.println("Хост");
-                    System.out.println(element);
                     switch (getShootResult(element.getFieldPlayer2(), gameOnlineDTO.getX(), gameOnlineDTO.getY())) {
                         case 0:
                             return "МИМО";
