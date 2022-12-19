@@ -11,10 +11,13 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class GameController {
@@ -34,9 +37,13 @@ public class GameController {
         return ResponseEntity.ok(gameOnlineService.getListGame());
     }
 
+    @PostMapping("/api/saveGameHistory/")
+    public void addHistoryGame(@RequestParam UUID idGame, @RequestParam long idUser) {
+
+    }
+
     @MessageMapping("/game")
     public void processMessage(@Payload GameOnlineDTO gameOnlineDTO) {
-        System.out.println(gameOnlineDTO);
         switch (gameOnlineDTO.getStatus()) {
             case "JOIN": {
                 gameOnlineDTO.setStatus("");
@@ -60,6 +67,7 @@ public class GameController {
                 break;
             }
             case "DISCONNECTION": {
+                System.out.println("DISCONNECTION");
                 template.convertAndSendToUser(gameOnlineDTO.getId().toString(), "/game",
                         new MessageDTO("DISCONNECTION", gameOnlineDTO.getPlayer1() == null ? gameOnlineDTO.getPlayer2() : gameOnlineDTO.getPlayer1(),
                                 "", "", -1, -1));
