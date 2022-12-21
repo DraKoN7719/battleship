@@ -37,9 +37,9 @@ public class GameController {
         return ResponseEntity.ok(gameOnlineService.getListGame());
     }
 
-    @PostMapping("/api/saveGameHistory/")
+    @GetMapping("/api/saveGameHistory")
     public void addHistoryGame(@RequestParam UUID idGame, @RequestParam long idUser) {
-
+        gameOnlineService.addHistoryGame(idGame, idUser);
     }
 
     @MessageMapping("/game")
