@@ -1,8 +1,10 @@
 package com.example.battleship.service;
 
+import com.example.battleship.model.HistoryGame;
 import com.example.battleship.model.dto.GameOnlineDTO;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,9 +13,21 @@ import java.util.UUID;
 public class GameOnlineService {
     private final List<GameOnlineDTO> listLobby = new ArrayList<>();
     private final List<GameOnlineDTO> listGame = new ArrayList<>();
+    private final HistoryGameService historyGameService;
+
+    public GameOnlineService(HistoryGameService historyGameService) {
+        this.historyGameService = historyGameService;
+    }
 
     public List<GameOnlineDTO> getListGame() {
         return listLobby;
+    }
+
+    public void addHistoryGame(UUID idGame, long idUser) {
+        listGame.stream().filter(x -> x.getId().equals(idGame)).forEach(x -> {
+            historyGameService.saveGame(new HistoryGame(idGame, x.getPlayer1(), x.getPlayer2(), idUser, Instant.now()));
+        });
+        listGame.removeIf(element -> element.getId().equals(idGame));
     }
 
     public void addGameOnline(GameOnlineDTO gameOnlineDTO) {
@@ -43,10 +57,7 @@ public class GameOnlineService {
     }
 
     public void deleteGame(UUID id) {
-        for (GameOnlineDTO element : listLobby) {
-            if (element.getId().equals(id)) listLobby.remove(element);
-            break;
-        }
+        listLobby.removeIf(element -> element.getId().equals(id));
     }
 
     public String userHit(GameOnlineDTO gameOnlineDTO) {
