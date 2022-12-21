@@ -17,7 +17,7 @@ public class CorsFilter {
                 // Соединение с фронтом
                 registry.addMapping("/api/**")
                         .maxAge(3600)
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("http://192.168.0.101:3000", "http://192.168.87.203:3000", "http://localhost:3000")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("Origin", "Access-Control-Allow-Origin", "Content-Type", "Accept",
                                 "Authorization", "Origin, Accept", "X-Requested-With",
