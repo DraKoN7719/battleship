@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -19,14 +20,19 @@ public class HistoryGame {
     @Column(name = "result")
     private Long result;
 
-    public HistoryGame(UUID id, Long player1, Long player2, Long result) {
+    @Column(name = "game_time")
+    private Instant gameTime;
+
+    public HistoryGame() {
+
+    }
+
+    public HistoryGame(UUID id, Long player1, Long player2, Long result, Instant gameTime) {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;
         this.result = result;
-    }
-
-    public HistoryGame() {
+        this.gameTime = gameTime;
     }
 
     public UUID getId() {
@@ -41,16 +47,16 @@ public class HistoryGame {
         return player1;
     }
 
-    public void setPlayer1(Long userId) {
-        this.player1 = userId;
+    public void setPlayer1(Long player1) {
+        this.player1 = player1;
     }
 
     public Long getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(Long opponentId) {
-        this.player2 = opponentId;
+    public void setPlayer2(Long player2) {
+        this.player2 = player2;
     }
 
     public Long getResult() {
@@ -59,5 +65,13 @@ public class HistoryGame {
 
     public void setResult(Long result) {
         this.result = result;
+    }
+
+    public Instant getGameTime() {
+        return gameTime;
+    }
+
+    public void setGameTime(Instant gameTime) {
+        this.gameTime = gameTime;
     }
 }

@@ -29,6 +29,12 @@ public class SavedGameController {
         return ResponseEntity.ok(Converters.convertToSavedGameDtos(savedGameService.getSavedGamesByUserId(userId)));
     }
 
+    @GetMapping("/api/load-game/{gameId}")
+    public ResponseEntity<Void> loadGame(@PathVariable("gameId") UUID gameId){
+        savedGameService.loadGame(gameId);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/api/saved-game/{gameId}")
     public ResponseEntity<SavedGameDto> getSavedGame(@PathVariable("gameId") UUID gameId) {
         return ResponseEntity.ok(Converters.convertToSavedGameDto(savedGameService.getSavedGameById(gameId)));
@@ -43,7 +49,7 @@ public class SavedGameController {
     }
 
     @DeleteMapping("/api/saved-game/{gameId}")
-    public ResponseEntity<Void> deletePlacement(@PathVariable("gameId") UUID gameId) {
+    public ResponseEntity<Void> deleteSavedGame(@PathVariable("gameId") UUID gameId) {
         savedGameService.deleteSavedGame(gameId);
         return ResponseEntity.noContent().build();
     }

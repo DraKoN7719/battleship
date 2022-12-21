@@ -1,11 +1,16 @@
 package com.example.battleship.utils;
 
+import com.example.battleship.model.HistoryGame;
 import com.example.battleship.model.Placement;
 import com.example.battleship.model.SavedGame;
+import com.example.battleship.model.dto.HistoryGameDto;
 import com.example.battleship.model.dto.PlacementDto;
 import com.example.battleship.model.dto.SavedGameDto;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static com.example.battleship.utils.PlacementUtils.maskField;
 import static com.example.battleship.utils.PlacementUtils.maskUserField;
@@ -35,7 +40,7 @@ public class Converters {
                                 savedGame.getNameGame(),
                                 savedGame.getUserId(),
                                 savedGame.getBotId(),
-                                maskUserField(placementToArray(savedGame.getUserField())),
+                                placementToArray(savedGame.getUserField()),
                                 maskField(placementToArray(savedGame.getBotField())),
                                 savedGame.getTurn());
     }
@@ -54,5 +59,11 @@ public class Converters {
         return savedGames.stream().map(Converters::convertToSavedGameDto).toList();
     }
 
-
+    public static HistoryGame convertToHistoryGame(HistoryGameDto historyGameDto) {
+        return new HistoryGame(UUID.fromString(historyGameDto.getId()),
+                               historyGameDto.getPlayer1(),
+                               historyGameDto.getPlayer2(),
+                               historyGameDto.getResult(),
+                               Instant.now());
+    }
 }

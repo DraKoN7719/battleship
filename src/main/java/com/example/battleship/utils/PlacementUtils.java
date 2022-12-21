@@ -6,7 +6,7 @@ public class PlacementUtils {
         int[][] maskedField = new int[field.length][field.length];
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                if (field[i][j] == 1 || field[i][j] % 2 == 0) {
+                if (field[i][j] == 1) {
                     maskedField[i][j] = 0;
                 } else {
                     maskedField[i][j] = field[i][j];
@@ -31,16 +31,28 @@ public class PlacementUtils {
     }
 
     public static int[][] placementToArray(String placement) {
+        if (placement == null) {
+            return null;
+        }
         int[][] placementArray = new int[10][10];
         for (int i = 0, k = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++, k++) {
-                placementArray[i][j] = Character.getNumericValue(placement.charAt(k));
+                if (placement.charAt(k) == '-') {
+                    String symbol = String.valueOf(placement.charAt(k));
+                    symbol += placement.charAt(++k);
+                    placementArray[i][j] = Integer.parseInt(symbol);
+                } else {
+                    placementArray[i][j] = Character.getNumericValue(placement.charAt(k));
+                }
             }
         }
         return placementArray;
     }
 
     public static String placementToString(int[][] placement) {
+        if (placement == null) {
+            return null;
+        }
         StringBuilder placementString = new StringBuilder();
         for (int[] ints : placement) {
             for (int anInt : ints) {

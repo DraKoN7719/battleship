@@ -1,4 +1,6 @@
-package com.example.battleship.model.dto;
+package com.example.battleship.model;
+
+import java.time.Instant;
 
 public interface HistoryGameProjection {
 

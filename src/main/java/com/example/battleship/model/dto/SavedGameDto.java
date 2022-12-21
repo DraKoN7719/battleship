@@ -9,9 +9,9 @@ public class SavedGameDto {
     private Long botId;
     private int[][] userField;
     private int[][] botField;
-    private Integer turn;
+    private Long turn;
 
-    public SavedGameDto(UUID id, String gameName, Long userId, Long botId, int[][] userField, int[][] botField, Integer turn) {
+    public SavedGameDto(UUID id, String gameName, Long userId, Long botId, int[][] userField, int[][] botField, Long turn) {
         this.id = id;
         this.gameName = gameName;
         this.userId = userId;
@@ -72,11 +72,11 @@ public class SavedGameDto {
         this.botField = botField;
     }
 
-    public Integer getTurn() {
+    public Long getTurn() {
         return turn;
     }
 
-    public void setTurn(Integer turn) {
+    public void setTurn(Long turn) {
         this.turn = turn;
     }
 }

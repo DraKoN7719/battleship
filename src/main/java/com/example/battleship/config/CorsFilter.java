@@ -26,7 +26,7 @@ public class CorsFilter {
                                 "Access-Control-Allow-Origin", "Access-Control-Allow-Origin",
                                 "Access-Control-Allow-Credentials")
                         .allowCredentials(true);
-                registry.addMapping("/**").allowCredentials(true).allowedOrigins("*").allowedMethods("*");
+                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*").allowedHeaders("*");
                 WebMvcConfigurer.super.addCorsMappings(registry);
             }
 

@@ -1,12 +1,13 @@
-package com.example.battleship.utils;
+package com.example.battleship.model;
 
-public class Cords {
-    private int id;
+public class Coordinate {
     private int x;
     private int y;
 
-    public Cords(int id, int x, int y) {
-        this.id = id;
+    public Coordinate() {
+    }
+
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -17,10 +18,6 @@ public class Cords {
 
     public void setX(int x) {
         this.x = x;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getY() {

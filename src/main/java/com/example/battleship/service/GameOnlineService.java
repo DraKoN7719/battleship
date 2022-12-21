@@ -17,8 +17,9 @@ public class GameOnlineService {
     }
 
     public void addGameOnline(GameOnlineDTO gameOnlineDTO) {
-        if (listLobby.stream().filter(x -> x.getId().equals(gameOnlineDTO.getId())).count() == 0)
+        if (listLobby.stream().filter(x -> x.getId().equals(gameOnlineDTO.getId())).count() == 0) {
             listLobby.add(gameOnlineDTO);
+        }
     }
 
     public void setGameOnline(GameOnlineDTO gameOnlineDTO) {
@@ -31,8 +32,9 @@ public class GameOnlineService {
 
     public void deleteGameOnline(UUID id) {
         listLobby.stream().filter((x) -> x.getId().equals(id)).forEach(x -> {
-            if (listGame.stream().filter(y -> y.getId().equals(id)).count() == 0)
+            if (listGame.stream().filter(y -> y.getId().equals(id)).count() == 0) {
                 listGame.add(x);
+            }
         });
         for (GameOnlineDTO element : listLobby) {
             if (element.getId().equals(id)) listLobby.remove(element);
@@ -62,9 +64,10 @@ public class GameOnlineService {
                             return "ПОПАЛ";
                         case 2:
                             return "УБИЛ";
+                        case 3:
+                            return "ИТОГ";
                     }
                 }
-                break;
             }
         } else {
             for (GameOnlineDTO element : listGame) {
@@ -78,9 +81,10 @@ public class GameOnlineService {
                             return "ПОПАЛ";
                         case 2:
                             return "УБИЛ";
+                        case 3:
+                            return "ИТОГ";
                     }
                 }
-                break;
             }
         }
         return "";
@@ -97,15 +101,18 @@ public class GameOnlineService {
             return 0;
         } else {
             pole[x][y] = -1;
-            if (isDead(pole, x, y))
-                if (isVin(pole)) return 3;
-                else
+            if (isDead(pole, x, y)) {
+                if (isWin(pole)) {
+                    return 3;
+                } else {
                     return 2;
+                }
+            }
             return 1;
         }
     }
 
-    private boolean isVin(int[][] pole) {
+    private boolean isWin(int[][] pole) {
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++)
                 if (pole[i][j] == 1) return false;

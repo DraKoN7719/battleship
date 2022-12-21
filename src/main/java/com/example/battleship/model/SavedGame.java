@@ -23,9 +23,9 @@ public class SavedGame {
     @Column(name = "bot_field")
     private String botField;
     @Column(name = "turn")
-    private Integer turn;
+    private Long turn;
 
-    public SavedGame(UUID id, String nameGame, Long userId, Long botId, String userField, String botField, Integer turn) {
+    public SavedGame(UUID id, String nameGame, Long userId, Long botId, String userField, String botField, Long turn) {
         this.id = id;
         this.nameGame = nameGame;
         this.userId = userId;
@@ -86,11 +86,11 @@ public class SavedGame {
         this.botField = botField;
     }
 
-    public Integer getTurn() {
+    public Long getTurn() {
         return turn;
     }
 
-    public void setTurn(Integer turn) {
+    public void setTurn(Long turn) {
         this.turn = turn;
     }
 }
